@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion":2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "jmau949/multi-client",
+            "hostname": "client",
+            "essential": false
+        }, 
+        {
+            "name": "server",
+            "image": "jmau949/multi-server",
+            "hostname": "api",
+            "essential":false
+        }, 
+        {
+            "name":"worker",
+            "image": "jmau949/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image":"jmau949/multi-nginx",
+            "hostname": "nginx", 
+            "essential":true,
+            "portMappings": [
+                {
+                    "hostPort": 80, 
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "client",
+                "server"
+            ]
+        }
+    ]
+}
